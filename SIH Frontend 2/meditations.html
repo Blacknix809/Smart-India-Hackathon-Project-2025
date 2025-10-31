@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Meditations & Resources</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="meditation-page-container">
+        <div class="meditation-header">
+            <h2>Meditations & Guided Practices</h2>
+            <p>Explore a variety of guided audios to support your mental well-being.</p>
+        </div>
+        <div class="meditation-grid">
+            <div class="meditation-card">
+                <div class="card-icon">🧘</div>
+                <h3 class="card-title">One-Minute Stress Reset</h3>
+                <p class="card-duration">1 min</p>
+                <p class="card-purpose">Quick relaxation</p>
+                <p class="card-notes">Audio cue for breathing</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🎶</div>
+                <h3 class="card-title">Guided Meditation</h3>
+                <p class="card-duration">5–10 min</p>
+                <p class="card-purpose">Mindfulness</p>
+                <p class="card-notes">Daily calm session</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">😌</div>
+                <h3 class="card-title">Progressive Muscle Relaxation</h3>
+                <p class="card-duration">6 min</p>
+                <p class="card-purpose">Relaxation</p>
+                <p class="card-notes">Step-by-step tension release</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🌬️</div>
+                <h3 class="card-title">4-7-8 Breathing Technique</h3>
+                <p class="card-duration">3 min</p>
+                <p class="card-purpose">Anxiety reduction</p>
+                <p class="card-notes">Practice guided breaths</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">✨</div>
+                <h3 class="card-title">Morning Positive Affirmations</h3>
+                <p class="card-duration">3 min</p>
+                <p class="card-purpose">Motivation</p>
+                <p class="card-notes">Repeat after narrator</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">💬</div>
+                <h3 class="card-title">Coping Statements for Anxiety</h3>
+                <p class="card-duration">2 min</p>
+                <p class="card-purpose">Emotional support</p>
+                <p class="card-notes">Calming phrases</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">✍️</div>
+                <h3 class="card-title">Evening Reflection</h3>
+                <p class="card-duration">4 min</p>
+                <p class="card-purpose">Journaling guidance</p>
+                <p class="card-notes">End-of-day mindfulness</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">😴</div>
+                <h3 class="card-title">Sleep Story / Guided Relaxation</h3>
+                <p class="card-duration">7–10 min</p>
+                <p class="card-purpose">Sleep aid</p>
+                <p class="card-notes">Soft narration & music</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🌳</div>
+                <h3 class="card-title">Nature Sounds for Focus</h3>
+                <p class="card-duration">5 min</p>
+                <p class="card-purpose">Concentration</p>
+                <p class="card-notes">Background for study</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🎧</div>
+                <h3 class="card-title">Binaural Beats for Calm</h3>
+                <p class="card-duration">10 min</p>
+                <p class="card-purpose">Deep relaxation</p>
+                <p class="card-notes">Optional for headphones</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🚀</div>
+                <h3 class="card-title">Low Motivation Booster</h3>
+                <p class="card-duration">3 min</p>
+                <p class="card-purpose">Motivation</p>
+                <p class="card-notes">Quick pep talk</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">😠</div>
+                <h3 class="card-title">Handling Anger</h3>
+                <p class="card-duration">3 min</p>
+                <p class="card-purpose">Emotional regulation</p>
+                <p class="card-notes">Techniques for pausing & reflecting</p>
+                <button class="play-btn">Play</button>
+            </div>
+            <div class="meditation-card">
+                <div class="card-icon">🚨</div>
+                <h3 class="card-title">Crisis Audio Support</h3>
+                <p class="card-duration">2 min</p>
+                <p class="card-purpose">Safety guidance</p>
+                <p class="card-notes">Steps & helpline numbers</p>
+                <button class="play-btn">Play</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.play-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.meditation-card');
+                const title = card.querySelector('.card-title').textContent;
+                alert(`You clicked to play "${title}". Audio playback functionality is not implemented yet.`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Community</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="community-page-wrapper">
+        <div class="welcome-banner">
+            <h2>Welcome to Mellow Community!</h2>
+            <p>This is a safe space to share your journey and connect with others. Please be kind and respectful.</p>
+        </div>
+
+        <div class="community-container">
+            <div class="community-sidebar left-sidebar">
+                <div class="sidebar-card my-posts-card">
+                    <h3>My Posts</h3>
+                    <div id="my-posts-feed">
+                    </div>
+                </div>
+            </div>
+
+            <div class="community-main">
+                <h2 class="community-title">Community Feed</h2>
+                <div class="post-feed" id="community-feed">
+                </div>
+            </div>
+
+            <div class="community-sidebar right-sidebar">
+                <div class="sidebar-card">
+                    <h3>Trending Topics</h3>
+                    <ul>
+                        <li>#Mindfulness</li>
+                        <li>#Gratitude</li>
+                        <li>#SelfCare</li>
+                        <li>#WellbeingJourney</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Community Guidelines</h3>
+                    <p>Remember to:</p>
+                    <ul>
+                        <li>Be supportive</li>
+                        <li>Respect privacy</li>
+                        <li>Avoid judgment</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card post-form-card">
+                    <h3>Share Your Thoughts</h3>
+                    <div class="post-form">
+                        <textarea id="post-content" placeholder="What's on your mind?" rows="4"></textarea>
+                        <button id="post-btn">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const postBtn = document.getElementById('post-btn');
+            const postContent = document.getElementById('post-content');
+            const communityFeed = document.getElementById('community-feed');
+            const myPostsFeed = document.getElementById('my-posts-feed');
+            
+            const USER_ID = "current_user"; // Placeholder for a unique user ID
+
+            // Dummy posts for demonstration
+            const dummyPosts = [
+                { id: 'p1', author: 'MindfulUser', content: 'Just had a wonderful meditation session. Feeling so calm!', date: new Date(Date.now() - 3600000).toISOString(), userId: 'user1' },
+                { id: 'p2', author: 'WellnessSeeker', content: 'Anyone have tips for managing stress during busy days?', date: new Date(Date.now() - 7200000).toISOString(), userId: 'user2' },
+                { id: 'p3', author: 'Calmness_is_Key', content: 'Small steps lead to big changes. Keep going!', date: new Date(Date.now() - 10800000).toISOString(), userId: 'user3' },
+            ];
+            
+            // Initial placeholder for posts
+            if (!localStorage.getItem('myCommunityPosts')) {
+                localStorage.setItem('myCommunityPosts', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('dummyPosts')) {
+                localStorage.setItem('dummyPosts', JSON.stringify(dummyPosts));
+            }
+
+            function loadPosts() {
+                const myPosts = JSON.parse(localStorage.getItem('myCommunityPosts')) || [];
+                const communityPosts = JSON.parse(localStorage.getItem('dummyPosts')) || [];
+                
+                myPostsFeed.innerHTML = '';
+                
+                communityFeed.innerHTML = '';
+                
+                // Load my posts
+                myPosts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post-item my-post-item';
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <div class="post-meta-container">
+                                <span class="post-author">${post.author}</span>
+                                <span class="post-date">${new Date(post.date).toLocaleString()}</span>
+                            </div>
+                            <button class="delete-btn" data-id="${post.id}"><i class="fas fa-times"></i></button>
+                        </div>
+                        <p class="post-content-text">${post.content}</p>
+                    `;
+                    myPostsFeed.prepend(postElement);
+                });
+
+                // Load community posts
+                communityPosts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post-item';
+                    postElement.innerHTML = `
+                        <div class="post-header">
+                            <div class="post-meta-container">
+                                <span class="post-author">${post.author}</span>
+                                <span class="post-date">${new Date(post.date).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <p class="post-content-text">${post.content}</p>
+                    `;
+                    communityFeed.prepend(postElement);
+                });
+            }
+
+            function addPost() {
+                const content = postContent.value.trim();
+                if (content === "") {
+                    alert("Your post can't be empty.");
+                    return;
+                }
+
+                const myPosts = JSON.parse(localStorage.getItem('myCommunityPosts')) || [];
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                const author = (userData && userData.name) ? userData.name : 'Anonymous';
+
+                const newPost = {
+                    id: Date.now().toString(),
+                    author: author,
+                    content: content,
+                    date: new Date().toISOString(),
+                    userId: USER_ID
+                };
+
+                myPosts.unshift(newPost);
+                localStorage.setItem('myCommunityPosts', JSON.stringify(myPosts));
+
+                postContent.value = '';
+                loadPosts();
+            }
+
+            function deletePost(postId) {
+                let myPosts = JSON.parse(localStorage.getItem('myCommunityPosts')) || [];
+                myPosts = myPosts.filter(post => post.id !== postId);
+                localStorage.setItem('myCommunityPosts', JSON.stringify(myPosts));
+                loadPosts();
+            }
+
+            postBtn.addEventListener('click', addPost);
+
+            // Event listener for delete buttons
+            myPostsFeed.addEventListener('click', (e) => {
+                if (e.target.closest('.delete-btn')) {
+                    const postId = e.target.closest('.delete-btn').dataset.id;
+                    if (confirm("Are you sure you want to delete this post?")) {
+                        deletePost(postId);
+                    }
+                }
+            });
+
+            loadPosts();
+        });
+    </script>
+    <!-- === Backend integration: community feed & submit === -->
+    <script>
+    const API_BASE = "http://127.0.0.1:8000/v1";  // change later
+    async function jsonFetch(url, opts = {}) {
+        const res = await fetch(url, { headers: { "Content-Type":"application/json" }, ...opts });
+        if (!res.ok) throw new Error(await res.text().catch(()=> res.statusText));
+        try { return await res.json(); } catch { return null; }
+    }
+    const esc = s => s.replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+    // augment existing loadPosts() by also pulling server "live" posts
+    (function integrateCommunity(){
+        const communityFeed = document.getElementById('community-feed');
+        const postBtn       = document.getElementById('post-btn');
+        const postContent   = document.getElementById('post-content');
+
+        async function loadServerFeed(){
+        try {
+            const posts = await jsonFetch(`${API_BASE}/posts?status=live`);
+            if (!Array.isArray(posts)) return;
+            // Clear server section & append posts from API at the top
+            const server = document.createElement('div');
+            server.setAttribute('data-server-feed','1');
+            server.innerHTML = posts.map(p => `
+            <div class="post-item">
+                <div class="post-header">
+                <div class="post-meta-container">
+                    <span class="post-author">${esc(p.alias || 'Anonymous')}</span>
+                    <span class="post-date">${new Date(p.created_at).toLocaleString()}</span>
+                </div>
+                </div>
+                <p class="post-content-text">${esc(p.body)}</p>
+            </div>
+            `).join('');
+            // remove older server feed block if present, then prepend
+            const old = communityFeed.querySelector('[data-server-feed]');
+            if (old) old.remove();
+            communityFeed.prepend(server);
+        } catch (e) {
+            console.warn("Could not load server community feed:", e.message);
+        }
+        }
+
+        async function submitToServer(){
+        const body = postContent.value.trim();
+        if (body.length < 10) return; // your local validation already handles alert
+        const alias = (() => {
+            try { return (JSON.parse(localStorage.getItem('userData'))||{}).name || "Anonymous"; }
+            catch { return "Anonymous"; }
+        })();
+        try {
+            await jsonFetch(`${API_BASE}/posts`, {
+            method: "POST",
+            body: JSON.stringify({ category: "General", body, anon: true, alias })
+            });
+            // server keeps it pending; your local UI will still show local "My Posts"
+            // re-pull live feed (so any pre-approved seed items show)
+            loadServerFeed();
+        } catch (e) {
+            console.warn("Post submit (server) failed:", e.message);
+        }
+        }
+
+        // Hook on top of your existing addPost() button
+        if (postBtn) {
+        postBtn.addEventListener('click', () => { submitToServer(); });
+        }
+
+        // Load server feed once on page load (alongside your local dummy feed)
+        loadServerFeed();
+    })();
+    </script>
+</body>
+</html>

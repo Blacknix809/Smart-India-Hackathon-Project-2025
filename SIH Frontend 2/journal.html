@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="journal-container">
+        <div class="journal-sidebar">
+            <div class="sidebar-header">
+                <h2 id="user-name"></h2>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-item active" id="new-entry-btn">
+                    <i class="fas fa-plus"></i> New Page
+                </a>
+                <div id="journal-list">
+                </div>
+            </div>
+        </div>
+
+        <div class="journal-content">
+            <div class="content-header">
+                <div class="header-left">
+                </div>
+                <div class="header-right">
+                    <button id="save-btn" class="journal-btn">Save</button>
+                </div>
+            </div>
+
+            <div class="content-body">
+                <input type="text" id="journal-title" class="journal-title-input" placeholder="Untitled">
+                <div id="journal-editor" class="journal-editor" contenteditable="true" placeholder="Write your thoughts down..."></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameEl = document.getElementById('user-name');
+            const journalList = document.getElementById('journal-list');
+            const newEntryBtn = document.getElementById('new-entry-btn');
+            const journalTitleInput = document.getElementById('journal-title');
+            const journalEditor = document.getElementById('journal-editor');
+            const saveBtn = document.getElementById('save-btn');
+            
+            let currentEntryId = null;
+
+            // Set user's name from local storage
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.name) {
+                userNameEl.textContent = `${userData.name}'s Journal`;
+            } else {
+                userNameEl.textContent = "Your Journal";
+            }
+
+            // Load saved entries on page load
+            loadEntries();
+            newEntry();
+
+            function loadEntries() {
+                journalList.innerHTML = '';
+                const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+                
+                // Add a delete button to each entry in the list
+                entries.forEach(entry => {
+                    const entryWrapper = document.createElement('div');
+                    entryWrapper.className = 'sidebar-item-wrapper';
+
+                    const entryLink = document.createElement('a');
+                    entryLink.href = '#';
+                    entryLink.className = 'sidebar-item';
+                    entryLink.dataset.id = entry.id;
+                    entryLink.textContent = entry.title || 'Untitled';
+                    entryLink.addEventListener('click', () => {
+                        openEntry(entry.id);
+                    });
+                    
+                    const deleteButton = document.createElement('span');
+                    deleteButton.className = 'delete-journal-btn';
+                    deleteButton.innerHTML = '<i class="fas fa-times"></i>';
+                    deleteButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevents the entry from being opened
+                        if (confirm('Are you sure you want to delete this journal entry?')) {
+                            deleteEntry(entry.id);
+                        }
+                    });
+
+                    entryWrapper.appendChild(entryLink);
+                    entryWrapper.appendChild(deleteButton);
+                    journalList.appendChild(entryWrapper);
+                });
+            }
+
+            function newEntry() {
+                const today = new Date().toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+                const defaultTitle = `${today} thoughts`;
+                
+                journalTitleInput.value = defaultTitle;
+                journalEditor.innerHTML = '';
+                currentEntryId = null;
+
+                const activeItem = document.querySelector('.sidebar-item.active');
+                if (activeItem) activeItem.classList.remove('active');
+                newEntryBtn.classList.add('active');
+            }
+
+            function openEntry(id) {
+                const entries = JSON.parse(localStorage.getItem('journalEntries'));
+                const entry = entries.find(e => e.id === id);
+                if (entry) {
+                    journalTitleInput.value = entry.title;
+                    journalEditor.innerHTML = entry.content;
+                    currentEntryId = id;
+
+                    const activeItem = document.querySelector('.sidebar-item.active');
+                    if (activeItem) activeItem.classList.remove('active');
+                    document.querySelector(`.sidebar-item[data-id='${id}']`).classList.add('active');
+                }
+            }
+
+            function saveEntry() {
+                const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+                const title = journalTitleInput.value || 'Untitled';
+                const content = journalEditor.innerHTML;
+
+                if (!content.trim()) {
+                    alert('Please write something before saving.');
+                    return;
+                }
+
+                if (currentEntryId) {
+                    // Update existing entry
+                    const entryIndex = entries.findIndex(e => e.id === currentEntryId);
+                    if (entryIndex > -1) {
+                        entries[entryIndex].title = title;
+                        entries[entryIndex].content = content;
+                    }
+                } else {
+                    // Create new entry
+                    const newEntry = {
+                        id: Date.now(),
+                        title: title,
+                        content: content,
+                        date: new Date().toISOString()
+                    };
+                    entries.unshift(newEntry);
+                }
+
+                localStorage.setItem('journalEntries', JSON.stringify(entries));
+                loadEntries();
+                alert('Journal entry saved!');
+            }
+
+            function deleteEntry(id) {
+                let entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+                entries = entries.filter(entry => entry.id !== id);
+                localStorage.setItem('journalEntries', JSON.stringify(entries));
+                
+                if (currentEntryId === id) {
+                    newEntry(); // Open a new blank entry if the deleted one was active
+                }
+                loadEntries();
+            }
+
+            newEntryBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                newEntry();
+            });
+
+            saveBtn.addEventListener('click', saveEntry);
+        });
+    </script>
+    <!-- === Backend integration: journal save/list === -->
+    <script>
+    const API_BASE = "http://127.0.0.1:8000/v1";  // change later
+    async function jsonFetch(url, opts = {}) {
+        const res = await fetch(url, { headers: { "Content-Type":"application/json" }, ...opts });
+        if (!res.ok) throw new Error(await res.text().catch(()=> res.statusText));
+        try { return await res.json(); } catch { return null; }
+    }
+
+    (function integrateJournal(){
+        const journalList   = document.getElementById('journal-list');
+        const journalTitle  = document.getElementById('journal-title');
+        const journalEditor = document.getElementById('journal-editor');
+        const saveBtn       = document.getElementById('save-btn');
+
+        function getAlias(){
+        try { return (JSON.parse(localStorage.getItem('userData'))||{}).name || "A Student"; }
+        catch { return "A Student"; }
+        }
+
+        async function loadServerEntries(){
+        const alias = getAlias();
+        try {
+            const rows = await jsonFetch(`${API_BASE}/journal?user_alias=${encodeURIComponent(alias)}`);
+            if (!Array.isArray(rows)) return;
+            // Render server entries at the top of the sidebar (non-destructive)
+            const block = document.createElement('div');
+            block.setAttribute('data-server-journal','1');
+            rows.forEach(e => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'sidebar-item';
+            a.textContent = e.user_alias + " — " + new Date(e.created_at).toLocaleString();
+            a.addEventListener('click', ev => {
+                ev.preventDefault();
+                journalTitle.value   = e.user_alias + " — " + new Date(e.created_at).toLocaleString();
+                journalEditor.innerHTML = e.text;
+            });
+            block.appendChild(a);
+            });
+            const old = journalList.querySelector('[data-server-journal]');
+            if (old) old.remove();
+            journalList.prepend(block);
+        } catch (e) {
+            console.warn("Journal list (server) failed:", e.message);
+        }
+        }
+
+        async function saveToServer(){
+        const alias = getAlias();
+        const text  = journalEditor.innerHTML.trim();
+        if (!text) return;
+        try {
+            await jsonFetch(`${API_BASE}/journal`, {
+            method: "POST",
+            body: JSON.stringify({ user_alias: alias, text })
+            });
+            // refresh server list
+            loadServerEntries();
+        } catch (e) {
+            console.warn("Journal save (server) failed:", e.message);
+        }
+        }
+
+        if (saveBtn) saveBtn.addEventListener('click', () => saveToServer());
+        // initial load
+        loadServerEntries();
+    })();
+    </script>
+</body>
+</html>

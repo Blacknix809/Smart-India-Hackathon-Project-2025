@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene.ai - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .greeting-section {
+            background: #fdf0f4;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .greeting-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .emoji-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+
+        .emoji-button {
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .emoji-button:hover {
+            transform: scale(1.2);
+        }
+
+        .button-group a.btn {
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .button-group .talk-serene {
+            background: #6e8efb;
+            color: white;
+        }
+
+        .button-group .meditation {
+            background: #4fc197;
+        }
+
+        .button-group .journal {
+            background: #d0af7a;
+        }
+
+        .button-group .counseling {
+            background: #f69fa1;
+        }
+
+        .button-group .community {
+            background: #e691d3;
+        }
+    </style>
+</head>
+<body>
+    <ul class="bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="container">
+        <div class="header">
+            <h1>Mellow</h1>
+            <p>Your journey to a healthier mind starts here</p>
+        </div>
+
+        <div class="content-section">
+            <div class="home-content">
+                <div class="greeting-section">
+                    <h2 id="welcome-message">Hello,</h2>
+                    <h2>How are you feeling today?</h2>
+                    <div class="emoji-container">
+                        <span class="emoji-button" data-feeling="happy">😃</span>
+                        <span class="emoji-button" data-feeling="calm">😌</span>
+                        <span class="emoji-button" data-feeling="neutral">😐</span>
+                        <span class="emoji-button" data-feeling="sad">😞</span>
+                        <span class="emoji-button" data-feeling="anxious">😰</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <a href="serene.html" class="btn talk-serene">Talk to Serene.ai</a>
+                    <a href="meditations.html" class="btn meditation">Meditation</a>
+                    <a href="journal.html" class="btn journal">Journal</a>
+                    <a href="book.html" class="btn counseling">Book Counseling</a>
+                    <a href="community.html" class="btn community">Community</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><a href="privacy.html">Privacy</a> | <a href="#">Contact</a></p>
+    </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('userData');
+            window.location.href = 'login-signup.html';
+        }
+
+        window.addEventListener('load', () => {
+            const storedData = localStorage.getItem('userData');
+            const welcomeMessage = document.getElementById('welcome-message');
+
+            if (storedData) {
+                const userData = JSON.parse(storedData);
+                welcomeMessage.textContent = `Hello, ${userData.name}!`;
+            } else {
+                window.location.href = 'login-signup.html';
+            }
+        });
+
+        const emojis = document.querySelectorAll('.emoji-button');
+        emojis.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                const feeling = emoji.getAttribute('data-feeling');
+                let message = "";
+
+                switch (feeling) {
+                    case 'sad':
+                        message = "It's okay to feel this way. Connecting with Serene.ai or reaching out in the community may provide valuable support.";
+                        break;
+                    case 'anxious':
+                        message = "Feeling anxious is challenging. Consider booking a confidential counseling session to talk with a professional.";
+                        break;
+                    case 'happy':
+                        message = "We're happy to hear that! How about documenting your positive thoughts in a gratitude note within your Journal?";
+                        break;
+                    case 'calm':
+                        message = "What a wonderful state of mind. Maintaining this feeling is important. Explore a new guided meditation or add a relaxing note to your Journal.";
+                        break;
+                    case 'neutral':
+                        message = "Exploring your inner state can be enlightening. A brief meditation can often help you gain perspective.";
+                        break;
+                }
+                alert(message);
+            });
+        });
+    </script>
+    <!-- === Backend integration: log mood to API === -->
+    <script>
+    // Set API base URL (local dev; change later for deployed backend)
+    const API_BASE = "http://127.0.0.1:8000/v1";
+
+    // Helper function for fetch with error handling
+    async function jsonFetch(url, opts = {}) {
+        const res = await fetch(url, {
+        headers: { "Content-Type": "application/json", ...(opts.headers||{}) },
+        ...opts
+        });
+        if (!res.ok) throw new Error(await res.text().catch(()=> res.statusText));
+        try { return await res.json(); } catch { return null; }
+    }
+
+    // Map UI feelings to backend moods
+    const FEELING_TO_MOOD = { happy: "happy", calm: "happy", neutral: "neutral", sad: "sad", anxious: "sad" };
+
+    // Attach click handlers after DOM is loaded
+    window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".emoji-button").forEach(el => {
+        el.addEventListener("click", async () => {
+            const feeling = el.getAttribute("data-feeling");
+            const mood = FEELING_TO_MOOD[feeling] || "neutral";
+
+            // Grab alias from localStorage or fallback
+            const alias = (() => {
+            try { return (JSON.parse(localStorage.getItem("userData"))||{}).name || "A Student"; }
+            catch { return "A Student"; }
+            })();
+
+            const url = `${API_BASE}/moods`;
+            console.log("Posting mood →", url, { mood, alias });  // debug log
+
+            try {
+            await jsonFetch(url, {
+                method: "POST",
+                body: JSON.stringify({ mood, alias })
+            });
+            console.log("Mood logged successfully");
+            } catch (e) {
+            console.warn("Mood log failed:", e.message);
+            }
+        });
+        });
+    });
+    </script>
+
+</body>
+</html>

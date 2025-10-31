@@ -1,0 +1,1013 @@
+/* --- Universal CSS Reset and Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    /* Updated gradient from your screenshot */
+    background: linear-gradient(180deg, #FF8E9D 0%, #9CE3F3 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* --- Login/Signup Page Styles --- */
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    margin: auto;
+}
+
+.header {
+    /* Updated header background to match new theme */
+    background: linear-gradient(to right, #f8a8b1, #a1e2f4);
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.content-section {
+    padding: 30px;
+}
+
+.welcome-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.welcome-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #4A90E2; /* Adjusted for better contrast with new theme */
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    margin-bottom: 15px;
+    color: #4A90E2; /* Adjusted for better contrast with new theme */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+    transition: all 0.4s ease-in-out; /* Smoother transition */
+    background: linear-gradient(to right, #F8E0E9, #E0F0F9); /* Lighter input background */
+}
+
+input:focus {
+    outline: none;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(156, 227, 243, 0.5); /* Shadow matching new theme */
+}
+
+.btn {
+    /* Updated button gradient */
+    background: linear-gradient(to right, #A7B1FF, #FFABAB);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smoother transition */
+    margin-top: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-5px); /* Increased hover effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+}
+
+.form-link a {
+    color: #4A90E2; /* Adjusted for better contrast with new theme */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+    color: #79A3E8; /* Slightly lighter on hover */
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-size: 0.9rem;
+    z-index: 1;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Animated Background Bubbles --- */
+.bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bubbles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px; /* Slightly smaller bubbles */
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3); /* Slightly more opaque */
+    animation: animate 20s linear infinite; /* Faster animation */
+    bottom: -150px;
+    /* Increased number of bubbles by generating more list items */
+}
+.bubbles li:nth-child(1){ left: 25%; width: 30px; height: 30px; animation-delay: 0s; animation-duration: 10s; }
+.bubbles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+.bubbles li:nth-child(3){ left: 70%; width: 25px; height: 25px; animation-delay: 4s; animation-duration: 14s; }
+.bubbles li:nth-child(4){ left: 40%; width: 40px; height: 40px; animation-delay: 0s; animation-duration: 16s; }
+.bubbles li:nth-child(5){ left: 65%; width: 35px; height: 35px; animation-delay: 0s; animation-duration: 10s; }
+.bubbles li:nth-child(6){ left: 75%; width: 20px; height: 20px; animation-delay: 3s; animation-duration: 18s; }
+.bubbles li:nth-child(7){ left: 35%; width: 30px; height: 30px; animation-delay: 7s; animation-duration: 15s; }
+.bubbles li:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 1s; animation-duration: 13s; }
+.bubbles li:nth-child(9){ left: 85%; width: 45px; height: 45px; animation-delay: 5s; animation-duration: 11s; }
+.bubbles li:nth-child(10){ left: 15%; width: 30px; height: 30px; animation-delay: 8s; animation-duration: 17s; }
+.bubbles li:nth-child(11){ left: 5%; width: 25px; height: 25px; animation-delay: 1s; animation-duration: 19s; }
+.bubbles li:nth-child(12){ left: 90%; width: 35px; height: 35px; animation-delay: 6s; animation-duration: 12s; }
+.bubbles li:nth-child(13){ left: 20%; width: 40px; height: 40px; animation-delay: 0s; animation-duration: 14s; }
+.bubbles li:nth-child(14){ left: 60%; width: 20px; height: 20px; animation-delay: 3s; animation-duration: 10s; }
+.bubbles li:nth-child(15){ left: 80%; width: 30px; height: 30px; animation-delay: 5s; animation-duration: 16s; }
+.bubbles li:nth-child(16){ left: 30%; width: 25px; height: 25px; animation-delay: 2s; animation-duration: 11s; }
+.bubbles li:nth-child(17){ left: 45%; width: 40px; height: 40px; animation-delay: 7s; animation-duration: 13s; }
+.bubbles li:nth-child(18){ left: 55%; width: 35px; height: 35px; animation-delay: 4s; animation-duration: 15s; }
+.bubbles li:nth-child(19){ left: 10%; width: 20px; height: 20px; animation-delay: 9s; animation-duration: 17s; }
+.bubbles li:nth-child(20){ left: 70%; width: 30px; height: 30px; animation-delay: 0s; animation-duration: 19s; }
+
+
+@keyframes animate {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+    100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+}
+
+/* --- Homepage Styles --- */
+.home-content {
+    padding: 30px;
+    text-align: center;
+}
+
+.greeting-section {
+    background: #fdf0f4;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.greeting-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.emoji-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.emoji-button {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.emoji-button:hover {
+    transform: scale(1.2);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button-group a.btn {
+    padding: 20px;
+    margin-top: 0;
+    /* Use new theme colors for homepage buttons or adjust */
+    background: linear-gradient(to right, #818ff9, #fc8585);
+}
+/* Ensure consistency for other buttons if they need different gradients */
+.button-group .talk-serene { background: linear-gradient(to right, #8895fa, #f49090); }
+.button-group .meditation { background: linear-gradient(to right, #aeddea, #8bdbbe); } /* Example adjustment */
+.button-group .journal { background: linear-gradient(to right, #f7d59d, #f1a367); } /* Example adjustment */
+.button-group .counseling { background: linear-gradient(to right, #f9abad, #f8a8b1); } /* Example adjustment */
+.button-group .community { background: linear-gradient(to right, #f19fe0, #e076f6); } /* Example adjustment */
+
+
+/* --- Booking Page Styles --- */
+.booking-container {
+    background-color: #f7fbf8;
+    max-width: 900px;
+    width: 90%;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    margin: auto;
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-center {
+    position: relative;
+    padding: 8px 30px;
+    background-color: #fce8c7;
+    border-radius: 25px;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1);
+}
+
+.ribbon {
+    font-weight: bold;
+    color: #7b4f3b;
+    font-size: 1.1rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.expert-profile {
+    display: flex;
+    align-items: center;
+    background: #fdf2e3;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+}
+
+.profile-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 25px;
+}
+
+.profile-details h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.profile-details .specialty {
+    color: #6e8efb;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.profile-details .qualification {
+    color: #888;
+    font-size: 1rem;
+}
+
+.subsection-title {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.date-selector, .time-selector {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.date-option, .time-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    flex: 1;
+}
+
+.date-option.selected, .time-option.selected {
+    background-color: #FFABAB; /* Use a color from the new theme */
+    color: white;
+    border-color: #A7B1FF; /* Use a color from the new theme */
+}
+
+.time-option i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.book-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to right, #7887f9, #f89d9d); /* Use new theme colors */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.book-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.note {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.time-selector-dropdown {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+#time-dropdown {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 1rem;
+    color: #555;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23A7B1FF%22%20d%3D%22M287%20163.6l-14.3-14.3-118-118c-3.7-3.7-8.7-5.5-13.7-5.5s-10%201.8-13.7%205.5L5.4%20149.3%2011.6%20155.5c-3.7-3.7-5.5-8.7-5.5-13.7s1.8-10%205.5-13.7L132.8%205.4c3.7-3.7%208.7-5.5%2013.7-5.5s10%201.8%2013.7%205.5l118%20118%206.2%206.2-14.3%2014.3z%22%2F%3E%3Cpath%20fill%3D%22%23A7B1FF%22%20d%3D%22M146.2%20292.4c-5%200-10-1.8-13.7-5.5L5.4%20168.1%2011.6%20161.9c3.7%203.7%208.7%205.5%2013.7%205.5s10-1.8%2013.7-5.5l118%20118c3.7%203.7%208.7%205.5%2013.7%205.5s10-1.8%2013.7-5.5l118-118c3.7-3.7%205.5-8.7%205.5-13.7s-1.8-10-5.5-13.7l-6.2-6.2%2014.3-14.3%20-6.2-6.2L160%20286.9c-3.7%203.7-8.7%205.5-13.7%205.5z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 15px;
+}
+
+/* --- Chatbot Page Styles --- */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: auto;
+}
+
+.chat-header {
+    padding: 20px;
+    /* Updated gradient for chat header */
+    background: linear-gradient(to right, #fc9a9a, #8d99f3);
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px;
+    border-radius: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.ai-message {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #e3f2fd;
+    align-self: flex-end;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.chat-input button {
+    margin-left: 10px;
+    padding: 12px 20px;
+    border: none;
+    /* Updated button gradient */
+    background: linear-gradient(to right, #7c8bf7, #fd9898);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out;
+}
+
+.chat-input button:hover {
+    transform: translateY(-2px);
+}
+
+/* --- Journal Page Styles --- */
+.journal-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.journal-sidebar {
+    width: 280px;
+    background-color: #fcfcfc;
+    border-right: 1px solid #e0e0e0;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid #dcdcdc; /* Adjusted for new theme */
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.sidebar-menu {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.sidebar-item {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #555;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-item:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar-item.active {
+    background-color: #e0e0e0;
+    font-weight: 600;
+}
+
+.sidebar-item i {
+    margin-right: 10px;
+    color: #777;
+}
+
+.journal-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: linear-gradient(135deg, #f89c9c, #95a1f8); /* Updated journal content background */
+}
+
+.content-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.journal-btn {
+    padding: 12px 25px;
+    background-color: #ededef;
+    color: rgb(17, 16, 16);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.journal-btn:hover {
+    background-color: #d8d8d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-body {
+    flex-grow: 1;
+}
+
+.journal-title-input {
+    width: 100%;
+    font-size: 3rem;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+    background: transparent;
+    color: white;
+}
+
+.journal-editor {
+    width: 100%;
+    min-height: 400px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+}
+
+.journal-editor:empty:before {
+    content: attr(placeholder);
+    color: #f0f0f0;
+    font-style: italic;
+}
+
+/* Styling for the delete button in the journal sidebar */
+.sidebar-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    transition: background-color 0.2s;
+}
+
+.sidebar-item-wrapper:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar-item {
+    padding: 10px 0;
+    flex-grow: 1;
+}
+
+.delete-journal-btn {
+    color: #a777e3;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0; /* Initially hidden */
+    padding: 5px;
+    transition: opacity 0.2s;
+}
+
+.sidebar-item-wrapper:hover .delete-journal-btn {
+    opacity: 1; /* Fade in on hover */
+}
+
+/* --- Meditations Page Styles --- */
+.meditation-page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.meditation-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.meditation-header h2 {
+    font-size: 2.5rem;
+    color: #4A90E2; /* Adjusted for new theme */
+    margin-bottom: 10px;
+}
+
+.meditation-header p {
+    font-size: 1.1rem;
+    color: #555;
+    opacity: 0.9;
+}
+
+.meditation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+.meditation-card {
+    background: #f8f8ff;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 250px;
+}
+
+.meditation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card-duration, .card-purpose, .card-notes {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.play-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: linear-gradient(to right, #5668ef, #f99797); /* Updated button gradient */
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+}
+
+/* --- Community Page Styles --- */
+.community-page-wrapper {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, #FF8E9D 0%, #9CE3F3 100%); /* Updated community page background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.welcome-banner {
+    text-align: center;
+    padding: 30px 20px;
+    color: white;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+}
+
+.welcome-banner h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-banner p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.welcome-banner a {
+    color: #f0f0f0;
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.welcome-banner a:hover {
+    color: white;
+}
+
+.community-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 50px 50px;
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    flex-grow: 1;
+}
+
+.community-main {
+    flex: 2;
+    max-width: 800px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.community-title {
+    font-size: 2.2rem;
+    color: #4A90E2; /* Adjusted for new theme */
+    margin-bottom: 25px;
+}
+
+.post-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    flex-grow: 1;
+}
+
+.post-item {
+    background: #f8f8ff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.post-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.post-date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.post-content-text {
+    color: #555;
+    line-height: 1.6;
+}
+
+.community-sidebar {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.left-sidebar {
+    order: -1;
+}
+
+.right-sidebar {
+    order: 1;
+}
+
+.sidebar-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-card h3 {
+    color: #4A90E2; /* Adjusted for new theme */
+    margin-bottom: 15px;
+}
+
+.sidebar-card p, .sidebar-card a, .sidebar-card ul, .sidebar-card li {
+    font-size: 1rem;
+    color: #555;
+}
+
+.sidebar-card a {
+    color: #4A90E2; /* Adjusted for new theme */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.sidebar-card a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-card li {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.post-form-card {
+    background-color: #fce8c7;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.post-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: vertical;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+#post-btn {
+    align-self: flex-end;
+    padding: 12px 30px;
+    border: none;
+    background: linear-gradient(to right, #7c8bfa, #ed9393); /* Updated button gradient */
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+#post-btn:hover {
+    transform: translateY(-2px);
+}
+
+.my-posts-card {
+    background-color: #f8f8ff;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #FFABAB; /* Adjusted for new theme */
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    background-color: rgba(255, 171, 171, 0.1); /* Lighter hover background */
+}
+
+.post-item .post-meta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.post-item .post-date {
+    margin-top: 5px;
+}

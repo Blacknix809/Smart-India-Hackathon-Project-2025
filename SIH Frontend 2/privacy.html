@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Privacy Policy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* This is a basic overlay style. You can move this to your main CSS file. */
+        .privacy-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .privacy-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .privacy-content h2 {
+            color: #2343e4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .privacy-content h3 {
+            color: #2343e4;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .privacy-content ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+
+        .privacy-content li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .privacy-content p {
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .privacy-content strong {
+            color: #333;
+        }
+
+        .privacy-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #2343e4;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="privacy-overlay" class="privacy-overlay">
+        <div class="privacy-content">
+            <button class="close-btn" onclick="window.location.href='index.html'">&times;</button>
+            <h2>Privacy & Data Use</h2>
+            
+            <h3>1. Introduction</h3>
+            <p>This platform is designed to support students with stress, anxiety, and everyday challenges. It is not therapy, diagnosis, or a medical service. If you are in crisis, please contact your local emergency number.</p>
+            
+            <h3>2. What we collect</h3>
+            <ul>
+                <li><strong>Alias or name</strong> (optional, used for journal entries, posts, and booking).</li>
+                <li><strong>Mood check-ins</strong> (😊 / 😐 / 😢) with timestamp.</li>
+                <li><strong>Journal entries</strong> (text you choose to write).</li>
+                <li><strong>Community posts</strong> (anonymous by default, reviewed before publishing).</li>
+                <li><strong>Counselor booking metadata</strong> (who you book and when; the booking itself is handled by Cal.com).</li>
+            </ul>
+
+            <h3>3. How we use it</h3>
+            <ul>
+                <li>To display your own journal entries back to you.</li>
+                <li>To show anonymous community posts to other students.</li>
+                <li>To connect you with counselors via bookings.</li>
+                <li>To see anonymous trends (like “how many sad logs this week”) to improve support.</li>
+            </ul>
+
+            <h3>4. What we don’t do</h3>
+            <ul>
+                <li><strong>❌ We don’t sell your data.</strong></li>
+                <li><strong>❌ We don’t share your data with advertisers.</strong></li>
+                <li><strong>❌ We don’t use your entries or posts to train AI models without permission.</strong></li>
+            </ul>
+
+            <h3>5. Your choices</h3>
+            <ul>
+                <li>You can post anonymously at any time.</li>
+                <li>You can choose an alias instead of your real name.</li>
+                <li>You can request deletion of your journal entries or posts by contacting us.</li>
+            </ul>
+
+            <h3>6. Third-party services</h3>
+            <ul>
+                <li>Cal.com handles bookings and confirmation emails.</li>
+                <li>Supabase stores data securely in a managed database.</li>
+            </ul>
+            <p>These services have their own privacy practices.</p>
+
+            <h3>7. Contact</h3>
+            <p>For any privacy concerns or to delete your data, please email us at:<br>
+            <a href="mailto:privacy@yourteam.com">📧 privacy@yourteam.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

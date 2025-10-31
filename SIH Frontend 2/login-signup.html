@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Log In / Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul class="bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="container">
+        <div class="header">
+            <h1>Serene.ai</h1>
+            <p>Your journey to a healthier mind starts here</p>
+        </div>
+
+        <div id="auth-section" class="content-section">
+            <div class="welcome-text">
+                <h2 id="dynamic-title"></h2>
+                <p id="dynamic-subtitle"></p>
+            </div>
+
+            <form id="login-form">
+                <div class="form-section">
+                    <div class="input-group">
+                        <label for="email-login">Email Address</label>
+                        <input type="email" id="email-login" required placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="password-login">Password</label>
+                        <input type="password" id="password-login" required placeholder="Enter your password">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Log In</button>
+                <div class="form-link">
+                    <span>Don't have an account? </span><a href="#" id="show-signup">Sign up</a>
+                </div>
+            </form>
+
+            <form id="signup-form" class="hidden">
+                <div class="form-section">
+                    <h3>Your Information</h3>
+                    <div class="input-group">
+                        <label for="name-signup">Full Name</label>
+                        <input type="text" id="name-signup" required placeholder="Enter your full name">
+                    </div>
+                    <div class="input-group">
+                        <label for="email-signup">Email Address</label>
+                        <input type="email" id="email-signup" required placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="password-signup">Password</label>
+                        <input type="password" id="password-signup" required placeholder="Create a secure password">
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3>Well Wisher's Contact</h3>
+                    <div class="input-group">
+                        <label for="wisher-name-signup">Name</label>
+                        <input type="text" id="wisher-name-signup" required placeholder="Well wisher's name">
+                    </div>
+                    <div class="input-group">
+                        <label for="wisher-relation-signup">Relation</label>
+                        <input type="text" id="wisher-relation-signup" required placeholder="e.g., Mother, Friend, Spouse">
+                    </div>
+                    <div class="input-group">
+                        <label for="wisher-phone-signup">Phone Number</label>
+                        <input type="tel" id="wisher-phone-signup" required placeholder="Well wisher's phone number">
+                    </div>
+                    <div class="input-group">
+                        <label for="wisher-email-signup">Email Address</label>
+                        <input type="email" id="wisher-email-signup" required placeholder="Well wisher's email">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+                <div class="form-link">
+                    <span>Already have an account? </span><a href="#" id="show-login">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><a href="privacy.html">Privacy</a> | <a href="#">Contact</a></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellow - Book Counseling</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="booking-container">
+        <div class="header-container">
+            <div class="header-center">
+                <span class="ribbon">Take help</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">Let's connect with the expert</h2>
+
+            <div class="expert-profile">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/150" alt="Dr. Uroos Fatima">
+                </div>
+                <div class="profile-details">
+                    <h3>Dr. Uroos Fatima</h3>
+                    <p class="specialty">Psychiatrist</p>
+                    <p class="qualification">MBBS, MD</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Select Date</h3>
+            <div class="date-selector">
+                <div class="date-option">
+                    <p class="day">Sun</p>
+                    <p class="number">19</p>
+                </div>
+                <div class="date-option selected">
+                    <p class="day">Mon</p>
+                </div>
+                <div class="date-option">
+                    <p class="day">Tue</p>
+                </div>
+                <div class="date-option">
+                    <p class="day">Wed</p>
+                </div>
+                <div class="date-option">
+                    <p class="day">Thu</p>
+                </div>
+                <div class="date-option">
+                    <p class="day">Fri</p>
+                </div>
+                <div class="date-option">
+                    <p class="day">Sat</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Select Time</h3>
+            <div class="time-selector-dropdown">
+                <select id="time-dropdown">
+                    <option value="9:00">09:00 AM</option>
+                    <option value="9:30">09:30 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="10:30">10:30 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="1:00">01:00 PM</option>
+                    <option value="1:30">01:30 PM</option>
+                    <option value="2:00">02:00 PM</option>
+                    <option value="2:30">02:30 PM</option>
+                    <option value="3:00">03:00 PM</option>
+                    <option value="3:30">03:30 PM</option>
+                    <option value="4:00">04:00 PM</option>
+                    <option value="4:30">04:30 PM</option>
+                    <option value="5:00">05:00 PM</option>
+                </select>
+            </div>
+
+            <button class="book-btn" onclick="alert('Appointment booked successfully!');">Book Appointment</button>
+
+            <p class="note">*Eligible for one free consultation</p>
+        </div>
+    </div>
+    <script>
+        const dateOptions = document.querySelectorAll('.date-option');
+
+        dateOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                dateOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+    </script>
+    <!-- === Backend integration: counselor booking via Cal.com === -->
+    <script>
+    const API_BASE = "http://127.0.0.1:8000/v1";  // change later
+    async function jsonFetch(url, opts = {}) {
+        const res = await fetch(url, { headers: { "Content-Type":"application/json" }, ...opts });
+        if (!res.ok) throw new Error(await res.text().catch(()=> res.statusText));
+        try { return await res.json(); } catch { return null; }
+    }
+
+    (function integrateBooking(){
+        const bookBtn = document.querySelector('.book-btn');
+        if (!bookBtn) return;
+
+        let calLink = null;
+
+        function getAlias(){
+        try { return (JSON.parse(localStorage.getItem('userData'))||{}).name || "A Student"; }
+        catch { return "A Student"; }
+        }
+
+        async function pickCounselor(){
+        try {
+            const list = await jsonFetch(`${API_BASE}/counselors`);
+            // pick first visible counselor for now (or you can extend by query params)
+            calLink = (Array.isArray(list) && list[0] && list[0].cal_link) ? list[0].cal_link : null;
+        } catch (e) {
+            console.warn("Load counselors failed:", e.message);
+        }
+        }
+
+        bookBtn.addEventListener('click', async (ev) => {
+        // Keep your existing alert UX (already in the onclick) by letting this run after ours
+        // but also try to open Cal.com in a new tab if we have a link:
+        if (!calLink) await pickCounselor();
+        if (calLink) {
+            const name = encodeURIComponent(getAlias());
+            window.open(`${calLink}?name=${name}`, "_blank");
+        }
+        });
+
+        // Preload counselor link
+        pickCounselor();
+    })();
+    </script>
+</body>
+</html>
