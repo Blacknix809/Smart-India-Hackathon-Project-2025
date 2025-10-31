@@ -101,9 +101,13 @@ flowchart TD
   B1 --> B6
   B1 --> B7
   B1 --> B8
-⚙️ Backend Setup
-bash
-Copy code
+```
+
+---
+
+## ⚙️ Backend Setup
+
+```bash
 # 1️⃣ Environment Setup
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
@@ -122,65 +126,73 @@ python server_serene.py
 # Update DB configuration in main.py → app.core.db
 # Use aiomysql for async pooling
 # (During the SIH demo, all data persisted via MySQL for stability)
-💻 Frontend Setup
-bash
-Copy code
+```
+
+---
+
+## 💻 Frontend Setup
+
+```bash
 # 1️⃣ Open any .html file in the frontend/ folder using a live server (e.g., VS Code Live Server)
 # 2️⃣ Ensure your backend runs locally at http://127.0.0.1:8000
 # 3️⃣ (If needed) Update API_BASE constants inside .html files
 # 4️⃣ Entry point: index.html
-🔗 Backend API Endpoints
-Endpoint	Method	Description
-/v1/health	GET	Check server health
-/v1/counselors	GET	Fetch list of counselors
-/v1/moods	POST	Record a student’s mood
-/v1/journal	GET / POST	Retrieve or save journal entries
-/v1/posts	GET / POST	Retrieve or create community posts
-/v1/serene-chat	POST	Get chatbot response
+```
 
-🧠 Chatbot Stack
-Embeddings: SentenceTransformers (MiniLM-L6-v2)
+---
 
-Retrieval: FAISS (inner product)
+## 🔗 Backend API Endpoints
 
-Reranker: Cross-encoder (MS MARCO)
+| Endpoint | Method | Description |
+|-----------|--------|-------------|
+| `/v1/health` | GET | Check server health |
+| `/v1/counselors` | GET | Fetch list of counselors |
+| `/v1/moods` | POST | Record a student’s mood |
+| `/v1/journal` | GET / POST | Retrieve or save journal entries |
+| `/v1/posts` | GET / POST | Retrieve or create community posts |
+| `/v1/serene-chat` | POST | Get chatbot response |
 
-LLM: TinyLlama / Qwen 0.5B Instruct
+---
 
-Empathy Engine: ALIVE framework (dynamic templates)
+## 🧠 Chatbot Stack
+- **Embeddings:** SentenceTransformers (MiniLM-L6-v2)  
+- **Retrieval:** FAISS (inner product)  
+- **Reranker:** Cross-encoder (MS MARCO)  
+- **LLM:** TinyLlama / Qwen 0.5B Instruct  
+- **Empathy Engine:** ALIVE framework (dynamic templates)  
+- **Crisis Detection:** Regex + Emotion classifier + safety message  
 
-Crisis Detection: Regex + Emotion classifier + safety message
+---
 
-🛡️ Privacy & Safety
-Anonymous posting and journaling supported.
+## 🛡️ Privacy & Safety
+- Anonymous posting and journaling supported.  
+- No personal data shared or stored externally.  
+- Crisis messages include helpline numbers.  
+- Privacy policy available in `privacy.html`.
 
-No personal data shared or stored externally.
+---
 
-Crisis messages include helpline numbers.
+## 🧩 Roadmap
+- [ ] Firebase authentication & cloud storage (original plan)  
+- [ ] Audio playback for meditations  
+- [ ] Admin dashboard for counselor approval  
+- [ ] LLM fine-tuning with domain-specific data  
+- [ ] Responsive PWA + mobile-first UX  
 
-Privacy policy available in privacy.html.
+---
 
-🧩 Roadmap
- Firebase authentication & cloud storage (original plan)
+## 🧾 Acknowledgments
+- **Smart India Hackathon 2025** organizers & mentors  
+- Open-source contributors from FastAPI, HuggingFace, and FAISS  
+- **Team Serene** for design, research, and development  
 
- Audio playback for meditations
+---
 
- Admin dashboard for counselor approval
+## 📜 License
+This project is licensed under the **MIT License**.  
+See `LICENSE` for details.
 
- LLM fine-tuning with domain-specific data
+---
 
- Responsive PWA + mobile-first UX
-
-🧾 Acknowledgments
-Smart India Hackathon 2025 organizers & mentors
-
-Open-source contributors from FastAPI, HuggingFace, and FAISS
-
-Team Serene for design, research, and development
-
-📜 License
-This project is licensed under the MIT License.
-See LICENSE for details.
-
-Developed with ❤️ for SIH 2025
-Made by Team Serene – Empowering students with mindful AI support.
+**Developed with ❤️ for SIH 2025**  
+_Made by Team Serene – Empowering students with mindful AI support._
