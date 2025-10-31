@@ -2,8 +2,6 @@
 
 A full-stack AI-driven web application built for the **Smart India Hackathon (SIH)** to support students’ mental well-being through journaling, counseling, community sharing, meditation, and an empathetic chatbot powered by LLMs.
 
-![Serene.ai Screenshot](docs/serene-preview.png)
-
 ---
 
 ## 🌟 Overview
@@ -53,55 +51,6 @@ Built with a modular architecture:
 - Integrated with counselor directory via `/v1/counselors` API.
 - Dynamic Cal.com link redirection.
 - One free consultation eligibility note.
-
----
-
-## 🏗️ Architecture
-
-```mermaid
-flowchart TD
-  subgraph Frontend
-    A1[index.html]
-    A2[login-signup.html]
-    A3[serene-2.html]
-    A4[community.html]
-    A5[journal.html]
-    A6[book.html]
-    A7[meditations.html]
-    A8[privacy.html]
-    A9[script.js]
-    A10[style.css]
-  end
-
-  subgraph Backend
-    B1[app_sqlite_main.py]
-    B2[chatbot.py]
-    B3[server_serene.py]
-    B4[/v1/moods]
-    B5[/v1/journal]
-    B6[/v1/posts]
-    B7[/v1/counselors]
-    B8[/v1/serene-chat]
-  end
-
-  subgraph Data
-    D1[(SQLite / MySQL DB)]
-    D2[(CSV Q&A Dataset)]
-  end
-
-  A3 --> B8
-  A5 --> B5
-  A4 --> B6
-  A1 --> B4
-  A6 --> B7
-  B1 --> D1
-  B2 --> D2
-  B1 --> B4
-  B1 --> B5
-  B1 --> B6
-  B1 --> B7
-  B1 --> B8
-```
 
 ---
 
